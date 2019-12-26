@@ -27,7 +27,7 @@
 采退日期|purchase_date|date||N|  
 审批状态|approval_status|smallint|1|N|
 退货状态|supply_status|smallint|1|N|
-要货日期|deadline|date||N|
+要货日期|dead_line|date||N|
 退货地址|delivery_address|varchar2|100|N|
 备注|remark|varchar2|200||
 
