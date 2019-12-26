@@ -125,3 +125,40 @@
 <b>采退出库单编号</b>|43001
 <b>销退入库单编号</b>|44001
  
+# 新建视图
+<b><i>新建了若干视图，与数据库中已有的视图对应</i></b><br />
+
+- V_PURCHASE_BACK (对应V_PURCHASE)
+```sql
+create or replace view v_purchase_back as
+select a.id,a.supplier_id,b.name as supplier_name,a.buyer_id,c.name as buyer_name,a.purchase_date,
+a.approval_status,(case when a.approval_status = 2 then '审批拒绝' when a.approval_status = 1 then '审批通过' else '新建' end) as approval,
+a.supply_status,(case when a.supply_status = 2 then '全部出库' when a.supply_status = 1 then '部分出库' else '未出库' end) as supply,a.dead_line,a.delivery_address,a.remark
+from t_purchase a 
+left join t_supplier b on a.supplier_id=b.id 
+left join t_employee c on a.buyer_id=c.id;
+```
+- V_PURCHASE_BACK_DETAILS (对应V_PURCHASE_DETAILS)
+```sql
+create or replace view v_purchase_back_details as
+select a.id,a.purchase_id,a.product_id,b.name as product_name,a.price,a.amount,a.out_amount,a.remark,0 as process_amt 
+from t_purchase_back_details a left join t_product b on a.product_id=b.id;
+```
+- V_PURCHASE_BACK_OUT (对应V_PURCHASE_IN)
+```sql
+create or replace view v_purchase_back_out as
+select a.ID,a.PURCHASE_ID,b.name as EMPLOYEE_name,a.OUT_DATE,a.SUPPLIER,a.REMARK
+from t_purchase_back_out a left join t_employee b on a.employee_id=b.id;
+```
+- V_PURCHASE_BACK_OUT_DETAILS (对应V_PURCHASE_IN_DETAILS)
+```sql
+create or replace view v_purchase_back_out_details as
+select a.id,a.purchase_out_id,a.product_id,b.name as product_name,a.amount 
+from t_purchase_back_out_details a left join t_product b on a.product_id = b.id; 
+```
+- V_SALES_BACK (对应V_SALES)
+```sql
+create or replace view v_sales_back as
+select a.id,b.name as customer_name,c.name as seller_name,a.sell_back_date,(case when a.status = 2 then '全部入库' when a.status = 1 then '部分入库' else '未入库' end) as status,a.remark 
+from t_sales_back a left join t_customer b on a.customer_id=b.id left join t_employee c on a.seller_id=c.id;
+```
