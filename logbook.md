@@ -97,10 +97,11 @@
 备注|remark|varchar2|200||
 
 - 销退入库明细表
+
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
-销售出库明细单编号|id|number(10,0)||N|PK
-销售出库单编号|sales_out_id|number(10,0)||N|PK,FK
+销退入库明细单编号|id|number(10,0)||N|PK
+销退入库单编号|sales_out_id|number(10,0)||N|PK,FK
 商品编号|product_id|number(10,0)||N|FK 
 数量|amount|number(10,0)||N|  
  
