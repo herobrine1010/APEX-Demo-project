@@ -10,7 +10,7 @@
 -|-|-|-|-|-
 采退单编号|id|number(10,0)||N|PK
 供应商编号|supplier_id|number(10,0)||N|FK 
-采退员编号|buyer_id|number(10,0)||N|FK
+采购员编号|buyer_id|number(10,0)||N|FK
 采退日期|purchase_date|date||N|  
 审批状态|approval_status|smallint|1|N|
 退货状态|supply_status|smallint|1|N|
