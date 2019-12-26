@@ -134,7 +134,7 @@ create or replace view v_purchase_back as
 select a.id,a.supplier_id,b.name as supplier_name,a.buyer_id,c.name as buyer_name,a.purchase_date,
 a.approval_status,(case when a.approval_status = 2 then '审批拒绝' when a.approval_status = 1 then '审批通过' else '新建' end) as approval,
 a.supply_status,(case when a.supply_status = 2 then '全部出库' when a.supply_status = 1 then '部分出库' else '未出库' end) as supply,a.dead_line,a.delivery_address,a.remark
-from t_purchase a 
+from t_purchase_back a 
 left join t_supplier b on a.supplier_id=b.id 
 left join t_employee c on a.buyer_id=c.id;
 ```
