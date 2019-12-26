@@ -31,7 +31,7 @@
 退货地址|delivery_address|varchar2|100|N|
 备注|remark|varchar2|200||
 
-- 采退明细表 t_purchase_details_back
+- 采退明细表 t_purchase_back_details
 
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
@@ -43,7 +43,7 @@
 状态|status|smallint|1|N|
 备注|remark|varchar2|200||
 
-- 采退出库表 t_purchase_out
+- 采退出库表 t_purchase_back_out
 
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
@@ -54,7 +54,7 @@
 收货人|supplier|varchar2|20|N| 
 备注|remark|varchar2|200||   
 
-- 采退出库明细表 t_purchase_out_details
+- 采退出库明细表 t_purchase_back_out_details
 
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
@@ -74,7 +74,7 @@
 状态|status|smallint|1|N|
 备注|remark|varchar2|200||
 
-- 销退明细表 t_sales_details_back
+- 销退明细表 t_sales_back_details
 
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
@@ -84,7 +84,7 @@
 单价|price|decimal|(10,2)|N|  
 数量|amount|number(10,0)||N|
 
-- 销退入库表 t_sales_in
+- 销退入库表 t_sales_back_in
 
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
@@ -96,7 +96,7 @@
 出库日期|out_date|date||N|  
 备注|remark|varchar2|200||
 
-- 销退入库明细表
+- 销退入库明细表 t_sales_back_in_details
 
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
@@ -122,5 +122,5 @@
 采购入库单编号|41001  
 销售出库单编号|42001
 <b>采退出库单编号</b>|43001
-<b>销退入库单编号<\b>|44001
+<b>销退入库单编号</b>|44001
  
