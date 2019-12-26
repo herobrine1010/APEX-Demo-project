@@ -11,7 +11,7 @@
 采退单编号|id|number(10,0)||N|PK
 供应商编号|supplier_id|number(10,0)||N|FK 
 采购员编号|buyer_id|number(10,0)||N|FK
-采退日期|purchase_date|date||N|  
+采退日期|purchase_back_date|date||N|  
 审批状态|approval_status|smallint|1|N|
 退货状态|supply_status|smallint|1|N|
 要货日期|dead_line|date||N|
@@ -27,7 +27,7 @@
 商品编号|product_id|number(10,0)||N|FK
 价格|price|decimal|10,2|N|
 数量|amount|number(10,0)||N|
-状态|status|smallint|1|N|
+出库数量|out_amount|number(10,0)||N|
 备注|remark|varchar2|200||
 
 - 采退出库表 t_purchase_back_out
@@ -37,7 +37,7 @@
 采退出库单编号|id|number(10,0)||N|PK
 采退单编号|purchase_id|number(10,0)||N|FK
 仓管员工编号|employee_id|number(10,0)||N|FK
-出库时间|in_date|date||N|
+出库时间|out_date|date||N|
 收货人|supplier|varchar2|20|N| 
 备注|remark|varchar2|200||   
 
@@ -46,7 +46,7 @@
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
 采退出库明细编号|id|number(10,0)||N|PK
-采退出库单号|purchase_in_id|number(10,0)||N|PK,FK
+采退出库单号|purchase_out_id|number(10,0)||N|PK,FK
 商品编号|product_id|number(10,0)||N|FK
 数量|amount|number(10,0)||N| 
  
@@ -57,7 +57,7 @@
 销退单编号|id|number(10,0)||N|PK
 客户编号|customer_id|number(10,0)||N|FK
 销售员编号|seller_id|number(10,0)||N|FK
-销退日期|sell_date|date||N|
+销退日期|sell_back_date|date||N|
 状态|status|smallint|1|N|
 备注|remark|varchar2|200||
 
@@ -70,6 +70,7 @@
 商品编号|product_id|number(10,0)||N|FK
 单价|price|decimal|(10,2)|N|  
 数量|amount|number(10,0)||N|
+入库数量|in_amount|number(10,0)||N|
 
 - 销退入库表 t_sales_back_in
 
@@ -80,7 +81,7 @@
 仓管员编号|employee_id|number(10,0)||N|FK 
 物流公司编号|logistics_id|number(10,0)||N|FK 
 物流单号|logistics_no|varchar2|50||   
-出库日期|out_date|date||N|  
+入库日期|in_date|date||N|  
 备注|remark|varchar2|200||
 
 - 销退入库明细表 t_sales_back_in_details
@@ -88,7 +89,7 @@
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
 销退入库明细单编号|id|number(10,0)||N|PK
-销退入库单编号|sales_out_id|number(10,0)||N|PK,FK
+销退入库单编号|sales_back_in_id|number(10,0)||N|PK,FK
 商品编号|product_id|number(10,0)||N|FK 
 数量|amount|number(10,0)||N|  
  
