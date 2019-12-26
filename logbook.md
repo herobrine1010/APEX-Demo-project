@@ -70,7 +70,7 @@
 销退单编号|id|number(10,0)||N|PK
 客户编号|customer_id|number(10,0)||N|FK
 销售员编号|seller_id|number(10,0)||N|FK
-销退日期|sell_date date||N|
+销退日期|sell_date|date||N|
 状态|status|smallint|1|N|
 备注|remark|varchar2|200||
 
