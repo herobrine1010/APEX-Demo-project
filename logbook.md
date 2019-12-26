@@ -74,12 +74,12 @@
 状态|status|smallint|1|N|
 备注|remark|varchar2|200||
 
-- 销售明细表 t_sales_details_back
+- 销退明细表 t_sales_details_back
 
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
-销售明细单编号|id|number(10,0)||N|PK
-销售单编号|sales_id|number(10,0)||N|FK 
+销退明细单编号|id|number(10,0)||N|PK
+销退单编号|sales_id|number(10,0)||N|FK 
 商品编号|product_id|number(10,0)||N|FK
 单价|price|decimal|(10,2)|N|  
 数量|amount|number(10,0)||N|
