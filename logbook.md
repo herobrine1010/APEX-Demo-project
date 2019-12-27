@@ -9,6 +9,7 @@
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
 采退单编号|id|number(10,0)||N|PK
+采购单编号|purchase_id|number(10,0)||N|
 供应商编号|supplier_id|number(10,0)||N|FK 
 采购员编号|buyer_id|number(10,0)||N|FK
 采退日期|purchase_back_date|date||N|  
@@ -23,7 +24,7 @@
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
 采退明细单编号|id|number(10,0)||N|PK
-采退单编号|purchase_id|number(10,0)||N|PK,FK
+采退单编号|purchase_back_id|number(10,0)||N|PK,FK
 商品编号|product_id|number(10,0)||N|FK
 价格|price|decimal|10,2|N|
 数量|amount|number(10,0)||N|
@@ -35,7 +36,7 @@
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
 采退出库单编号|id|number(10,0)||N|PK
-采退单编号|purchase_id|number(10,0)||N|FK
+采退单编号|purchase_back_id|number(10,0)||N|FK
 仓管员工编号|employee_id|number(10,0)||N|FK
 出库时间|out_date|date||N|
 收货人|supplier|varchar2|20|N| 
@@ -49,12 +50,13 @@
 采退出库单号|purchase_out_id|number(10,0)||N|PK,FK
 商品编号|product_id|number(10,0)||N|FK
 数量|amount|number(10,0)||N| 
- 
+
 - 销退表 t_sales_back
 
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
 销退单编号|id|number(10,0)||N|PK
+销售单编号|sales_id|number(10,0)||N|
 客户编号|customer_id|number(10,0)||N|FK
 销售员编号|seller_id|number(10,0)||N|FK
 销退日期|sell_back_date|date||N|
@@ -66,7 +68,7 @@
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
 销退明细单编号|id|number(10,0)||N|PK
-销退单编号|sales_id|number(10,0)||N|FK 
+销退单编号|sales_back_id|number(10,0)||N|FK 
 商品编号|product_id|number(10,0)||N|FK
 单价|price|decimal|(10,2)|N|  
 数量|amount|number(10,0)||N|
@@ -77,7 +79,7 @@
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
 销退入库单编号|id|number(10,0)||N|PK
-销退单编号|sales_id|number(10,0)||N|FK
+销退单编号|sales_back_id|number(10,0)||N|FK
 仓管员编号|employee_id|number(10,0)||N|FK 
 物流公司编号|logistics_id|number(10,0)||N|FK 
 物流单号|logistics_no|varchar2|50||   
@@ -92,8 +94,8 @@
 销退入库单编号|sales_back_in_id|number(10,0)||N|PK,FK
 商品编号|product_id|number(10,0)||N|FK 
 数量|amount|number(10,0)||N|  
- 
- 
+
+
 # 命名规则
 <b><i>在原文档4.3部分的基础上增加了对应表的编号规则.</i></b><br />
 
@@ -112,7 +114,7 @@
 销售出库单编号|42001
 <b>采退出库单编号</b>|43001
 <b>销退入库单编号</b>|44001
- 
+
 # 新建视图
 <b><i>新建了若干视图，与数据库中已有的视图对应</i></b><br />
 
@@ -129,13 +131,13 @@ left join t_employee c on a.buyer_id=c.id;
 - V_PURCHASE_BACK_DETAILS (对应V_PURCHASE_DETAILS)
 ```sql
 create or replace view v_purchase_back_details as
-select a.id,a.purchase_id,a.product_id,b.name as product_name,a.price,a.amount,a.out_amount,a.remark,0 as process_amt 
+select a.id,a.purchase_back_id,a.product_id,b.name as product_name,a.price,a.amount,a.out_amount,a.remark,0 as process_amt 
 from t_purchase_back_details a left join t_product b on a.product_id=b.id;
 ```
 - V_PURCHASE_BACK_OUT (对应V_PURCHASE_IN)
 ```sql
 create or replace view v_purchase_back_out as
-select a.ID,a.PURCHASE_ID,b.name as EMPLOYEE_name,a.OUT_DATE,a.SUPPLIER,a.REMARK
+select a.ID,a.purchase_back_id,b.name as EMPLOYEE_name,a.OUT_DATE,a.SUPPLIER,a.REMARK
 from t_purchase_back_out a left join t_employee b on a.employee_id=b.id;
 ```
 - V_PURCHASE_BACK_OUT_DETAILS (对应V_PURCHASE_IN_DETAILS)
@@ -175,15 +177,15 @@ CREATE OR REPLACE FORCE VIEW  V_SALES_OUT_DETAILS ("ID", "SALES_OUT_ID", "PRODUC
 
 - V_SALES_BACK_DETAILS
 ```sql
-CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_DETAILS ("ID", "SALES_ID", "PRODUCT_ID", "PRODUCT_NAME", "PRICE", "AMOUNT", "IN_AMOUNT", "PROCESS_AMT") AS 
-  select a.id,a.sales_id,a.product_id,b.name as product_name,a.price,a.amount,a.in_amount,0 as process_amt  
+CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_DETAILS ("ID", "sales_back_id", "PRODUCT_ID", "PRODUCT_NAME", "PRICE", "AMOUNT", "IN_AMOUNT", "PROCESS_AMT") AS 
+  select a.id,a.sales_back_id,a.product_id,b.name as product_name,a.price,a.amount,a.in_amount,0 as process_amt  
 from t_sales_back_details a left join t_product b on a.product_id=b.id
 ```
 
 - V_SALES_BACK_IN
 ```sql
-CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_IN ("ID", "SALES_ID", "EMPLOYEE_NAME", "IN_DATE", "LOGISTICS_NO", "LOGISTICS_NAME", "REMARK") AS
-  select a.ID,a.SALES_ID,b.name as EMPLOYEE_name,a.IN_DATE,a.LOGISTICS_NO,c.name as LOGISTICS_name, a.REMARK
+CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_IN ("ID", "sales_back_id", "EMPLOYEE_NAME", "IN_DATE", "LOGISTICS_NO", "LOGISTICS_NAME", "REMARK") AS
+  select a.ID,a.sales_back_id,b.name as EMPLOYEE_name,a.IN_DATE,a.LOGISTICS_NO,c.name as LOGISTICS_name, a.REMARK
 from T_SALES_BACK_IN a left join t_employee b on a.employee_id=b.id left join T_LOGISTICS c on a.LOGISTICS_ID=c.id
 ```
 
