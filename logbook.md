@@ -104,7 +104,7 @@
 商品编号|21001  
 供应商编号|22001  
 采购单编号|23001  
-<b>销售管理</b>|24001 
+<b>采退单编号</b>|24001 
 客户编号|31001  
 销售单编号|32001  
 <b>销退单编号</b>|33001
@@ -119,7 +119,7 @@
 - V_PURCHASE_BACK (对应V_PURCHASE)
 ```sql
 create or replace view v_purchase_back as
-select a.id,a.supplier_id,b.name as supplier_name,a.buyer_id,c.name as buyer_name,a.purchase_date,
+select a.id,a.supplier_id,b.name as supplier_name,a.buyer_id,c.name as buyer_name,a.purchase_back_date,
 a.approval_status,(case when a.approval_status = 2 then '审批拒绝' when a.approval_status = 1 then '审批通过' else '新建' end) as approval,
 a.supply_status,(case when a.supply_status = 2 then '全部出库' when a.supply_status = 1 then '部分出库' else '未出库' end) as supply,a.dead_line,a.delivery_address,a.remark
 from t_purchase_back a 
@@ -149,4 +149,46 @@ from t_purchase_back_out_details a left join t_product b on a.product_id = b.id;
 create or replace view v_sales_back as
 select a.id,b.name as customer_name,c.name as seller_name,a.sell_back_date,(case when a.status = 2 then '全部入库' when a.status = 1 then '部分入库' else '未入库' end) as status,a.remark 
 from t_sales_back a left join t_customer b on a.customer_id=b.id left join t_employee c on a.seller_id=c.id;
+```
+### tables.sql中不存在但直接导入会生成的视图如下
+
+- V_SALES_DETAILS
+```sql
+CREATE OR REPLACE FORCE VIEW  V_SALES_DETAILS ("ID", "SALES_ID", "PRODUCT_ID", "PRODUCT_NAME", "PRICE", "AMOUNT", "OUT_AMOUNT", "PROCESS_AMT") AS 
+  select a.id,a.sales_id,a.product_id,b.name as product_name,a.price,a.amount,a.out_amount,0 as process_amt  
+from t_sales_details a left join t_product b on a.product_id=b.id
+```
+
+- V_SALES_OUT
+```sql
+CREATE OR REPLACE FORCE VIEW  V_SALES_OUT ("ID", "SALES_ID", "EMPLOYEE_NAME", "OUT_DATE", "LOGISTICS_NO", "LOGISTICS_NAME", "REMARK") AS 
+  select a.ID,a.SALES_ID,b.name as EMPLOYEE_name,a.OUT_DATE,a.LOGISTICS_NO,c.name as LOGISTICS_name, a.REMARK 
+from T_SALES_OUT a left join t_employee b on a.employee_id=b.id left join T_LOGISTICS c on a.LOGISTICS_ID=c.id
+```
+
+- V_SALES_OUT_DETAILS
+```sql
+CREATE OR REPLACE FORCE VIEW  V_SALES_OUT_DETAILS ("ID", "SALES_OUT_ID", "PRODUCT_ID", "PRODUCT_NAME", "AMOUNT") AS 
+  select a.id,a.sales_out_id,a.product_id,b.name as product_name,a.amount from t_sales_out_details a left join t_product b on a.product_id = b.id
+```
+<b><i>对应上面3个视图新建对应的销退视图：</i></b><br />
+
+- V_SALES_BACK_DETAILS
+```sql
+CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_DETAILS ("ID", "SALES_ID", "PRODUCT_ID", "PRODUCT_NAME", "PRICE", "AMOUNT", "IN_AMOUNT", "PROCESS_AMT") AS 
+  select a.id,a.sales_id,a.product_id,b.name as product_name,a.price,a.amount,a.in_amount,0 as process_amt  
+from t_sales_back_details a left join t_product b on a.product_id=b.id
+```
+
+- V_SALES_BACK_IN
+```sql
+CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_IN ("ID", "SALES_ID", "EMPLOYEE_NAME", "IN_DATE", "LOGISTICS_NO", "LOGISTICS_NAME", "REMARK") AS
+  select a.ID,a.SALES_ID,b.name as EMPLOYEE_name,a.IN_DATE,a.LOGISTICS_NO,c.name as LOGISTICS_name, a.REMARK
+from T_SALES_BACK_IN a left join t_employee b on a.employee_id=b.id left join T_LOGISTICS c on a.LOGISTICS_ID=c.id
+```
+
+- V_SALES_BACK_IN_DETAILS
+```sql
+CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_IN_DETAILS ("ID", "SALES_BACK_IN_ID", "PRODUCT_ID", "PRODUCT_NAME", "AMOUNT") AS
+  select a.id,a.sales_back_in_id,a.product_id,b.name as product_name,a.amount from t_sales_back_in_details a left join t_product b on a.product_id = b.id
 ```
