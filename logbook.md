@@ -9,7 +9,7 @@
 中文名|字段名|类型|宽度|可空|主外码
 -|-|-|-|-|-
 采退单编号|id|number(10,0)||N|PK
-采购单编号|purchase_id|number(10,0)||N|
+采购单编号|purchase_id|number(10,0)||N|FK
 供应商编号|supplier_id|number(10,0)||N|FK 
 采购员编号|buyer_id|number(10,0)||N|FK
 采退日期|purchase_back_date|date||N|  
@@ -121,12 +121,13 @@
 - V_PURCHASE_BACK (对应V_PURCHASE)
 ```sql
 create or replace view v_purchase_back as
-select a.id,a.supplier_id,b.name as supplier_name,a.buyer_id,c.name as buyer_name,a.purchase_back_date,
+select a.id,d.supplier_id,b.name as supplier_name,a.buyer_id,c.name as buyer_name,a.purchase_back_date,
 a.approval_status,(case when a.approval_status = 2 then '审批拒绝' when a.approval_status = 1 then '审批通过' else '新建' end) as approval,
-a.supply_status,(case when a.supply_status = 2 then '全部出库' when a.supply_status = 1 then '部分出库' else '未出库' end) as supply,a.dead_line,a.delivery_address,a.remark
-from t_purchase_back a 
-left join t_supplier b on a.supplier_id=b.id 
-left join t_employee c on a.buyer_id=c.id;
+a.supply_status,(case when a.supply_status = 2 then '全部出库' when a.supply_status = 1 then '部分出库' else '未出库' end) as supply,a.dead_line,a.delivery_address,a.remark,a.PURCHASE_ID
+from t_purchase_back a
+left join t_supplier b on a.supplier_id=b.id
+left join t_employee c on a.buyer_id=c.id
+left join t_purchase d on a.purchase_id=d.id;
 ```
 - V_PURCHASE_BACK_DETAILS (对应V_PURCHASE_DETAILS)
 ```sql
