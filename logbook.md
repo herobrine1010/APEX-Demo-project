@@ -178,14 +178,14 @@ CREATE OR REPLACE FORCE VIEW  V_SALES_OUT_DETAILS ("ID", "SALES_OUT_ID", "PRODUC
 
 - V_SALES_BACK_DETAILS
 ```sql
-CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_DETAILS ("ID", "sales_back_id", "PRODUCT_ID", "PRODUCT_NAME", "PRICE", "AMOUNT", "IN_AMOUNT", "PROCESS_AMT") AS 
+CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_DETAILS ("ID", "SALES_BACK_ID", "PRODUCT_ID", "PRODUCT_NAME", "PRICE", "AMOUNT", "IN_AMOUNT", "PROCESS_AMT") AS 
   select a.id,a.sales_back_id,a.product_id,b.name as product_name,a.price,a.amount,a.in_amount,0 as process_amt  
 from t_sales_back_details a left join t_product b on a.product_id=b.id
 ```
 
 - V_SALES_BACK_IN
 ```sql
-CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_IN ("ID", "sales_back_id", "EMPLOYEE_NAME", "IN_DATE", "LOGISTICS_NO", "LOGISTICS_NAME", "REMARK") AS
+CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_IN ("ID", "SALES_BACK_ID", "EMPLOYEE_NAME", "IN_DATE", "LOGISTICS_NO", "LOGISTICS_NAME", "REMARK") AS
   select a.ID,a.sales_back_id,b.name as EMPLOYEE_name,a.IN_DATE,a.LOGISTICS_NO,c.name as LOGISTICS_name, a.REMARK
 from T_SALES_BACK_IN a left join t_employee b on a.employee_id=b.id left join T_LOGISTICS c on a.LOGISTICS_ID=c.id
 ```
