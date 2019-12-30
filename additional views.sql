@@ -47,6 +47,11 @@ select a.id,a.sales_out_id,a.product_id,b.name as product_name,a.amount
 from t_sales_out_details a 
 left join t_product b on a.product_id = b.id;
 
+create or replace view v_sales as
+select a.id,b.name as customer_name,c.name as seller_name,a.sell_date,(case when a.status = 2 then '全部出库' when a.status = 1 then '部分出库' else '未出库' end) as status,a.remark 
+from t_sales a 
+left join t_customer b on a.customer_id=b.id 
+left join t_employee c on a.seller_id=c.id;
 
 create or replace view v_sales_back as
 select a.id,b.name as customer_name,c.name as seller_name,a.sell_back_date,(case when a.status = 2 then '全部入库' when a.status = 1 then '部分入库' else '未入库' end) as status,a.remark 
@@ -54,14 +59,13 @@ from t_sales_back a
 left join t_customer b on a.customer_id=b.id 
 left join t_employee c on a.seller_id=c.id;
 
-
-CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_DETAILS ("ID", "sales_back_id", "PRODUCT_ID", "PRODUCT_NAME", "PRICE", "AMOUNT", "IN_AMOUNT", "PROCESS_AMT") AS 
+CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_DETAILS ("ID", "SALES_BACK_ID", "PRODUCT_ID", "PRODUCT_NAME", "PRICE", "AMOUNT", "IN_AMOUNT", "PROCESS_AMT") AS 
 select a.id,a.sales_back_id,a.product_id,b.name as product_name,a.price,a.amount,a.in_amount,0 as process_amt  
 from t_sales_back_details a 
 left join t_product b on a.product_id=b.id;
 
 
-CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_IN ("ID", "sales_back_id", "EMPLOYEE_NAME", "IN_DATE", "LOGISTICS_NO", "LOGISTICS_NAME", "REMARK") AS
+CREATE OR REPLACE FORCE VIEW  V_SALES_BACK_IN ("ID", "SALES_BACK_ID", "EMPLOYEE_NAME", "IN_DATE", "LOGISTICS_NO", "LOGISTICS_NAME", "REMARK") AS
 select a.ID,a.sales_back_id,b.name as EMPLOYEE_name,a.IN_DATE,a.LOGISTICS_NO,c.name as LOGISTICS_name, a.REMARK
 from T_SALES_BACK_IN a 
 left join t_employee b on a.employee_id=b.id 
