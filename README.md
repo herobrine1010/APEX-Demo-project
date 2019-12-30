@@ -1,5 +1,6 @@
 # APEX-Demo-project
-In-Memory database final project
+In-Memory database final project<br />
+:octocat:<b>このプロジェクトはオープンソースと言っても、コピーする頃レイアウトやラベル名をちょっと変更してください！</b>:octocat:
 ---
 # Documentations
 - <a href="https://github.com/herobrine1010/APEX-Demo-project/blob/master/requirement%20analysis.md">requirement-analysis.md</a>
@@ -22,4 +23,4 @@ supplements some views that are not yet created but needed for the business logi
 - <a href="https://github.com/herobrine1010/APEX-Demo-project/blob/master/apex.sql">apex.sql</a>
 is an APEX model that was directly exported from the project. 
 ---
-このプロジェクトはオープンソースと言っても、コピーする頃レイアウトやラベル名をちょっと変更してください！=w=
+
