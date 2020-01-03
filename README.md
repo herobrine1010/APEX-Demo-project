@@ -1,6 +1,6 @@
 # APEX-Demo-project
 In-Memory database final project<br />
-<b>ご注意：このプロジェクトはオープンソースと言っても、コピーする頃レイアウトやラベル名をちょっと変更してください！</b>:octocat:
+
 ---
 # Documentations
 - <a href="https://github.com/herobrine1010/APEX-Demo-project/blob/master/requirement%20analysis.md">requirement-analysis.md</a>
