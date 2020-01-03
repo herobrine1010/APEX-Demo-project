@@ -20,7 +20,9 @@ supplements some tables that are not yet created but needed for the business log
 supplements some views that are not yet created but needed for the business logic.
 ---
 # APEX files
-- <a href="https://github.com/herobrine1010/APEX-Demo-project/blob/master/apex.sql">apex.sql</a>
-is an APEX model that was directly exported from the project. 
+- <a href="https://github.com/herobrine1010/APEX-Demo-project/blob/master/apex1.sql">apex1.sql</a>
+is an APEX model that was directly exported from the project after the final change.
+- <b>DEPRECATED:</b><a href="https://github.com/herobrine1010/APEX-Demo-project/blob/master/apex.sql">apex.sql</a>
+is an naiver version. Several bugs remain pended.
 ---
 
